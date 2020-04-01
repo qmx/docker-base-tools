@@ -33,5 +33,5 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u "qmx" --password-stdin
 
       - name: build
-        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${{ github.ref }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
+        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
         
