@@ -40,4 +40,14 @@ jobs:
 
       - name: build
         run: docker buildx build --platform "${{ matrix.target }}" -t "qmxme/base-tools:${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
-        
+
+      - name: extract binary
+        run: |
+          id=$(docker create "qmxme/base-tools:${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}")
+          docker cp "$id:/opt/rust-tools/bin" dist
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: "dist/${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}"
+          path: "dist/${{ matrix.tool }}"
