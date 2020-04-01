@@ -32,6 +32,12 @@ jobs:
       - name: login to docker hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: build and push latest
-        run: docker buildx build --platform "${{ matrix.target }}" --output "${{ matrix.tool }}" --build-arg "CRATE=${{ matrix.tool }}" .
+      - name: build
+        run: docker buildx build --platform "${{ matrix.target }}" --output "/tmp/${{ matrix.tool }}" --build-arg "CRATE=${{ matrix.tool }}" .
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: "tmp-${{ matrix.tool }}"
+          path: "/tmp/${{ matrix.tool }}"
         
