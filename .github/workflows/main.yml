@@ -7,12 +7,13 @@ jobs:
   build:
     name: build binary
     runs-on: ubuntu-latest
-    matrix:
-      target:
-        - "linux/arm/v7"
-        - "linux/amd64"
-      tool:
-        - zoxide
+    strategy:
+      matrix:
+        target:
+          - "linux/arm/v7"
+          - "linux/amd64"
+        tool:
+          - zoxide
 
     steps:
       - name: checkout
