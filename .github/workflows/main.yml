@@ -39,5 +39,5 @@ jobs:
           docker_arch: "${{ matrix.target }}"
 
       - name: build
-        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${{ sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
+        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${{ steps.sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
         
