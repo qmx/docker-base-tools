@@ -30,7 +30,9 @@ jobs:
         uses: qmx/ghaction-container-tag@master
 
       - name: login to docker hub
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u "qmx" --password-stdin
+        run: docker login docker.pkg.github.com -u "qmx" -p $GITHUB_TOKEN
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: convert the arch
         id: sane_arch
