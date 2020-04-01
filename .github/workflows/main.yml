@@ -32,6 +32,12 @@ jobs:
       - name: login to docker hub
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u "qmx" --password-stdin
 
+      - name: convert the arch
+        id: sane_arch
+        uses: qmx/ghaction-docker-arch@master
+        with:
+          docker_arch: "${{ matrix.target }}"
+
       - name: build
-        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
+        run: docker buildx build --platform "${{ matrix.target }}" -t "docker.pkg.github.com/qmx/docker-base-tools/${{ matrix.tool }}:${ sane_arch.arch }}-${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
         
