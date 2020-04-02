@@ -27,7 +27,7 @@ jobs:
           - sccache
           - starship
           - wasm-pack
-          - wk-cli
+          - wk
           - zoxide
 
     steps:
