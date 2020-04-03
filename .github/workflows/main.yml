@@ -54,7 +54,7 @@ jobs:
           docker_arch: "${{ matrix.target }}"
 
       - name: build
-        run: docker buildx build --platform "${{ matrix.target }}" -t "qmxme/base-tools:${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}" --push --build-arg "CRATE=${{ matrix.tool }}" .
+        run: docker buildx build --platform "${{ matrix.target }}" -t "qmxme/base-tools:${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}-${{ steps.container.outputs.version }}" --load --build-arg "CRATE=${{ matrix.tool }}" .
 
       - name: extract binary
         run: |
@@ -65,4 +65,20 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: "${{ matrix.tool }}-${{ steps.sane_arch.outputs.arch }}"
+          path: "dist"
+
+  package:
+    name: package binaries
+    runs-on: ubuntu-latest
+    needs: ['build']
+    steps:
+      - name: download artifacts
+        uses: actions/download-artifact@v2-preview
+        with:
+          path: dist/
+
+      - name: package it up
+        uses: actions/upload-artifact@v1
+        with:
+          name: "dist"
           path: "dist"
