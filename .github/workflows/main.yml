@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         target:
-          - "linux/arm/v7"
           - "linux/amd64"
         tool:
           - cargo-bloat

@@ -1,8 +1,9 @@
-FROM qmxme/rust-builder:0.3.0 as rust_builderz
+FROM clux/muslrust:1.42.0-stable as rust_builderz
 
+ADD ./Makefile .
 ENV CARGO_INSTALL_ROOT /opt/rust-tools
 ARG CRATE
-RUN cargo install $CRATE
+RUN make $CRATE
 
-FROM debian:buster-slim
+FROM scratch
 COPY --from=rust_builderz /opt/rust-tools/bin/* /opt/rust-tools/bin/
