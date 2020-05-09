@@ -13,21 +13,21 @@ jobs:
           - "linux/amd64"
         tool:
           - cargo-bloat
-          #- cargo-bundle
-          #- cargo-docserver
-          #- cargo-edit
-          #- cargo-expand
-          #- cargo-release
-          #- cargo-tree
-          #- cargo-watch
-          #- cargo-web
-          #- cpubars
-          #- diesel_cli
-          #- sccache
-          #- starship
-          #- wasm-pack
-          #- wk
-          #- zoxide
+          - cargo-bundle
+          - cargo-docserver
+          - cargo-edit
+          - cargo-expand
+          - cargo-release
+          - cargo-tree
+          - cargo-watch
+          - cargo-web
+          - cpubars
+          - diesel_cli
+          - sccache
+          - starship
+          - wasm-pack
+          - wk
+          - zoxide
 
     steps:
       - name: checkout
@@ -37,7 +37,7 @@ jobs:
         id: buildx
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
-          version: v0.3.1
+          buildx-version: v0.3.1
 
       - name: get the version
         id: container
@@ -78,8 +78,5 @@ jobs:
         with:
           path: dist/
 
-      - name: package it up
-        uses: actions/upload-artifact@v1
-        with:
-          name: "dist"
-          path: "dist"
+      - name: show binaries
+        run : ls dist/
