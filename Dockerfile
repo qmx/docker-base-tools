@@ -5,5 +5,5 @@ ENV CARGO_INSTALL_ROOT /opt/rust-tools
 ARG CRATE
 RUN make $CRATE
 
-FROM scratch
+FROM busybox
 COPY --from=rust_builderz /opt/rust-tools/bin/* /opt/rust-tools/bin/
