@@ -22,7 +22,7 @@ jobs:
           - cargo-watch
           - cargo-web
           - cpubars
-          - diesel_cli
+          #- diesel_cli
           - sccache
           - starship
           - wasm-pack
