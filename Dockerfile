@@ -1,4 +1,4 @@
-FROM clux/muslrust:1.42.0-stable as rust_builderz
+FROM clux/muslrust:1.43.1-stable as rust_builderz
 
 ADD ./Makefile .
 ENV CARGO_INSTALL_ROOT /opt/rust-tools
