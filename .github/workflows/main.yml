@@ -43,7 +43,6 @@ jobs:
         id: container
         uses: qmx/ghaction-container-tag@master
 
-
       - name: convert the arch
         id: sane_arch
         uses: qmx/ghaction-docker-arch@master
@@ -75,6 +74,10 @@ jobs:
         uses: actions/download-artifact@v2-preview
         with:
           path: dist/
+
+      - name: get the version
+        id: container
+        uses: qmx/ghaction-container-tag@master
 
       - name: build image
         run : docker build -t "qmxme/base-tools:${{ steps.container.outputs.version }}" -f Dockerfile.dist .
