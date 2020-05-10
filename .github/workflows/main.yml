@@ -78,6 +78,9 @@ jobs:
         with:
           path: dist/
 
+      - name: list artifacts
+        run: ls -lR dist
+
       - name: get the version
         id: container
         uses: qmx/ghaction-container-tag@master
