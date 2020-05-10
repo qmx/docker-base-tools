@@ -1,7 +1,7 @@
 FROM busybox as builder
 COPY ./dist .
 RUN mkdir -p /opt/rust-tools/bin
-RUN find dist -t f -exec cp {} /opt/rust-tools/bin/ \;
+RUN find dist -type f -exec cp {} /opt/rust-tools/bin/ \;
 RUN chmod 755 /opt/rust-tools/bin/*
 
 FROM busybox
