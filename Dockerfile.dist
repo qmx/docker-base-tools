@@ -1,0 +1,4 @@
+FROM busybox
+COPY ./dist/ /opt/rust-tools/bin/
+RUN chmod 755 /opt/rust-tools/bin/*
+
