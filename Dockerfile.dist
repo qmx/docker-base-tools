@@ -1,4 +1,9 @@
-FROM busybox
-COPY ./dist/ /opt/rust-tools/bin/
+FROM busybox as builder
+COPY ./dist .
+RUN mkdir -p /opt/rust-tools/bin
+RUN find dist -t f -exec cp {} /opt/rust-tools/bin/ \;
 RUN chmod 755 /opt/rust-tools/bin/*
+
+FROM busybox
+COPY --from=builder /opt/rust-tools/bin/ /opt/rust-tools/bin/
 
