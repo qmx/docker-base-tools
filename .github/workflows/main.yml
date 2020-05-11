@@ -13,7 +13,7 @@ jobs:
           - "linux/amd64"
           - "linux/arm/v7"
         tool:
-          #- cargo-bloat
+          - cargo-bloat
           #- cargo-bundle
           #- cargo-docserver
           #- cargo-edit
@@ -22,7 +22,7 @@ jobs:
           #- cargo-tree
           #- cargo-watch
           #- cargo-web
-          - cpubars
+          #- cpubars
           #- diesel_cli
           #- sccache
           #- starship
