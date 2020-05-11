@@ -2,13 +2,8 @@ FROM busybox as builder
 ARG ARCH
 COPY ./dist /dist
 RUN mkdir -p /opt/rust-tools/bin
-RUN mkdir -p /stage
-RUN find /dist -type f -exec cp -v {} /stage/ \;
-RUN mv -v /stage/$ARCH-* /opt/rust-tools/bin/
-WORKDIR /opt/rust-tools/bin
-RUN for i in *; do mv $i "$(echo $i | sed 's/$ARCH-//')"; done
+RUN for i in `find /dist -type f | grep $ARCH`; do mv -v $i /opt/rust-tools/bin/; done
 RUN chmod 755 /opt/rust-tools/bin/*
 
 FROM busybox
 COPY --from=builder /opt/rust-tools/bin/ /opt/rust-tools/bin/
-
