@@ -11,6 +11,7 @@ jobs:
       matrix:
         target:
           - "linux/amd64"
+          - "linux/arm/v7"
         tool:
           - cargo-bloat
           - cargo-bundle
