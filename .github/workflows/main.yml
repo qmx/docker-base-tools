@@ -63,12 +63,17 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: "${{ matrix.tool }}"
+          name: "${{ steps.sane_arch.outputs.arch }}/${{ matrix.tool }}"
           path: "dist"
 
   package:
     name: package binaries
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - "linux/amd64"
+          - "linux/arm/v7"
     needs: ['build']
     steps:
       - name: checkout
@@ -86,11 +91,17 @@ jobs:
         id: container
         uses: qmx/ghaction-container-tag@master
 
+      - name: convert the arch
+        id: sane_arch
+        uses: qmx/ghaction-docker-arch@master
+        with:
+          docker_arch: "${{ matrix.target }}"
+
       - name: build image
-        run : docker build -t "qmxme/base-tools:${{ steps.container.outputs.version }}" -f Dockerfile.dist .
+        run : docker build --build-arg "ARCH=${{ steps.sane_arch.outputs.arch }}" -t "qmxme/base-tools:${{ steps.container.outputs.version }}-${{ steps.sane_arch.outputs.arch }}" -f Dockerfile.dist .
 
       - name: login to docker hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: push to dockerhub
-        run: docker push "qmxme/base-tools:${{ steps.container.outputs.version }}"
+        run: docker push "qmxme/base-tools:${{ steps.container.outputs.version }}-${{ steps.sane_arch.outputs.arch }}"
