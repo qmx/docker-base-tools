@@ -63,7 +63,7 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: "${{ steps.sane_arch.outputs.arch }}/${{ matrix.tool }}"
+          name: "${{ steps.sane_arch.outputs.arch }}-${{ matrix.tool }}"
           path: "dist"
 
   package:
