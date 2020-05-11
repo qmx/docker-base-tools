@@ -14,21 +14,21 @@ jobs:
           - "linux/arm/v7"
         tool:
           - cargo-bloat
-          - cargo-bundle
-          - cargo-docserver
-          - cargo-edit
-          - cargo-expand
-          - cargo-release
-          - cargo-tree
-          - cargo-watch
-          - cargo-web
-          - cpubars
-          - diesel_cli
-          - sccache
-          - starship
-          - wasm-pack
-          - wk
-          - zoxide
+          #- cargo-bundle
+          #- cargo-docserver
+          #- cargo-edit
+          #- cargo-expand
+          #- cargo-release
+          #- cargo-tree
+          #- cargo-watch
+          #- cargo-web
+          #- cpubars
+          #- diesel_cli
+          #- sccache
+          #- starship
+          #- wasm-pack
+          #- wk
+          #- zoxide
 
     steps:
       - name: checkout
