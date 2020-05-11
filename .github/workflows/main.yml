@@ -79,6 +79,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v1
 
+      - name: prepare buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v1
+        with:
+          buildx-version: v0.3.1
+
       - name: download artifacts
         uses: actions/download-artifact@v2-preview
         with:
