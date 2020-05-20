@@ -24,6 +24,7 @@ jobs:
           - cargo-web
           - cpubars
           - diesel_cli
+          - git-delta
           - sccache
           - starship
           - wasm-pack
